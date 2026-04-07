@@ -1,120 +1,147 @@
 ---
 
-# ☕ Java Fundamentals – Sistema Bancário (Console)
+## ☕ Java Fundamentals – Sistema Bancário (Console)
 
-Este projeto foi criado para praticar e fortalecer conceitos fundamentais de Java e Programação Orientada a Objetos (POO) através de um sistema bancário simples baseado em terminal.
+Este projeto foi desenvolvido para praticar e consolidar conceitos fundamentais de Java e Programação Orientada a Objetos (POO), através de um sistema bancário simples executado via terminal.
 
 ---
 
 ## 🎯 Objetivo
 
-O objetivo deste projeto é simular um sistema bancário básico, aplicando conceitos de POO em um cenário prático.
+Simular um sistema bancário básico aplicando POO em um cenário realista.
 
-O sistema modela entidades do mundo real como contas bancárias, saldo e operações financeiras, permitindo funcionalidades como depósito, saque e consulta de saldo.
+O sistema modela contas bancárias e suas regras de negócio, permitindo operações como:
 
-Além disso, o projeto busca reforçar boas práticas como organização de código, legibilidade e separação de responsabilidades, mantendo a implementação simples e totalmente baseada em terminal.
+* Depósito
+* Saque
+* Aplicação de juros (conta poupança)
+* Validações de operações financeiras
+
+O foco do projeto é praticar **boas práticas de orientação a objetos**, como encapsulamento, abstração, herança e polimorfismo.
 
 ---
 
 ## 🧠 Conceitos de POO Aplicados
 
-O projeto foi desenvolvido utilizando os seguintes princípios:
+### ✔ Encapsulamento
 
-### Encapsulamento
+* Atributos privados/protegidos
+* Controle de acesso via métodos
+* Regras de negócio protegidas dentro das classes
 
-* Os dados da conta (saldo, número da conta, etc.) são encapsulados dentro de classes
-* O acesso é feito por métodos controlados
+### ✔ Abstração
 
-### Abstração
+* Classe abstrata `ContaBancaria`
+* Métodos genéricos como:
 
-* As operações bancárias são expostas através de métodos claros, como:
-  
-  - `depositar()`
-  - `sacar()`
-  - `consultarSaldo()`
+  * `depositar()`
+  * `sacar()`
 
-### Modularidade / Separação de Responsabilidades
+### ✔ Herança
 
-O sistema é organizado em camadas:
+* `ContaCorrente` e `ContaPoupanca` herdam de `ContaBancaria`
 
-* `model` → Account → Representa os dados (entidade)
-* `ui` → Menu → Responsável pela interação com o usuário
-* `services` → BankingService → Contém a lógica de negócio e fluxo da aplicação
+### ✔ Polimorfismo
 
-Essa separação melhora a manutenção e prepara o sistema para evoluções futuras.
+* Implementação diferente de saque e depósito em cada tipo de conta
+
+---
+
+src/
+ ├── model/
+ │    ├── ContaBancaria (abstract)
+ │    ├── ContaCorrente
+ │    ├── ContaPoupanca
+ │    ├── StatusConta (enum)
+ │
+ ├── services/
+ │    ├── BancoService (lógica de negócio e controle das operações)
+ │
+ ├── ui/
+ │    ├── Menu (interface de interação com o usuário via terminal)
 
 ---
 
 ## 📊 Regras de Negócio
 
-O sistema segue algumas regras básicas:
-
-* Não é possível sacar um valor maior que o saldo disponível
-* Depósitos devem ser valores positivos
-* Entradas inválidas são tratadas (evita que o programa quebre)
-* Todas as operações passam por validação
-
----
-
-## 🛠️ Funcionalidades
-
-O sistema possui:
-
-* Criar conta bancária
-* Depositar dinheiro
-* Sacar dinheiro
-* Consultar saldo
-* Validação de entrada do usuário
-* Menu interativo via terminal
+* Contas são criadas automaticamente com status **ATIVA**
+* Saldo inicial é sempre **0**
+* Valores de operações devem ser positivos
+* Contas inativas ou bloqueadas não podem realizar operações
+* Conta corrente possui limite para saque
+* Conta poupança permite aplicação de juros
 
 ---
 
-## 🏗️ Estrutura do Projeto
+## 🏦 Tipos de Conta
 
-* `model` → Conta → Representação da entidade
-* `ui` → Menu → Interface de interação com o usuário
-* `services` → BancoService → Lógica de negócio e fluxo principal
+### ✔ Conta Corrente
+
+* Possui limite adicional de saque
+* Permite saldo negativo dentro do limite definido
+
+### ✔ Conta Poupança
+
+* Possui taxa de juros
+* Método `aplicarJuros()` para rendimento do saldo
+
+---
+
+## ⚙️ Funcionalidades Implementadas
+
+* Criar contas (corrente e poupança)
+* Depositar valores
+* Sacar valores
+* Validação de operações
+* Aplicação de juros (poupança)
+* Controle de status da conta
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
 * Java 17+
-* Apache Maven (gerenciamento de build e estrutura do projeto)
-* ArrayList (armazenamento em memória)
-* Scanner (entrada de dados via terminal)
+* Programação Orientada a Objetos (POO)
+* ArrayList (planejado para uso futuro)
+* Scanner (planejado para interface via terminal)
 * Visual Studio Code
+* Estrutura manual de pastas (sem Maven ou frameworks)
 
 ---
 
-## 🚀 Aprendizados
+## 🚀 Melhorias Futuras
 
-* Aplicação prática de POO
-* Manipulação de coleções (`ArrayList`)
-* Construção de aplicações interativas via terminal
-* Validação de entrada do usuário
-* Organização de código em camadas
+O projeto ainda está em evolução e será expandido com:
 
----
+### 🔜 Camada de serviço (BancoService)
 
-## 🔮 Melhorias Futuras
+* Centralizar regras de negócio
+* Gerenciar fluxo das operações
 
-Este projeto foi pensado para evoluir. Algumas melhorias possíveis:
+### 🔜 Interface de usuário (Console Menu)
 
-* Sistema de login e cadastro de usuários
-* Suporte a múltiplas contas
+* Menu interativo no terminal:
+
+  * Criar conta
+  * Depositar
+  * Sacar
+  * Aplicar juros
+
+### 🔜 Evoluções planejadas
+
 * Histórico de transações
-* Persistência de dados (arquivo ou banco de dados)
-* Melhor tratamento de erros e validações
-* Evolução para arquitetura em camadas (Controller / Service / Repository)
+* Transferência entre contas
+* Persistência de dados (arquivo)
+* Separação em camadas mais avançadas (Controller/Service)
+* Melhor tratamento de erros
 
 ---
 
 ## ⚠️ Observações
 
-Este é um projeto **100% baseado em terminal**, sem uso de frameworks ou APIs externas.
+Este projeto é **100% baseado em terminal**, sem uso de frameworks ou dependências externas.
 
-O foco está no aprendizado dos fundamentos antes de avançar para tecnologias como Spring Boot.
+O foco é aprendizado dos fundamentos de Java antes de evoluir para tecnologias como Spring Boot.
 
 ---
 
@@ -124,8 +151,4 @@ Desenvolvido por **Arthur Mitsuo Yamamoto**
 
 ---
 
-## 📌 Nota
 
-Este projeto faz parte da minha jornada de aprendizado em Java e continuará evoluindo conforme novos conceitos forem sendo aplicados.
-
----
