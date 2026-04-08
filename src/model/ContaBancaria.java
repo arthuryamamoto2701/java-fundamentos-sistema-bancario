@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.StatusInvalidoException;
+
 public abstract class ContaBancaria {
 
     private final int id;
@@ -39,7 +41,7 @@ public abstract class ContaBancaria {
 
     public void setStatus(StatusConta status) {
         if (status == null) {
-            throw new IllegalArgumentException("Status não pode ser nulo.");
+            throw new StatusInvalidoException("Status não pode ser nulo.");
         }
         this.status = status;
     }

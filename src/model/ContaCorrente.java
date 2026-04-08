@@ -10,10 +10,16 @@ public class ContaCorrente extends ContaBancaria {
         super(id, titular);
         this.limiteContaCorrente = limiteContaCorrente;
     }
-
+// ========================
+// GETTERS / SETTERS
+// ========================
     public double getLimiteContaCorrente() {
         return limiteContaCorrente;
     }
+
+// ========================
+// ========================
+// Implementação dos métodos abstratos da classe mãe
 
     @Override
     public void depositar(double valor) {
@@ -28,6 +34,9 @@ public class ContaCorrente extends ContaBancaria {
 
         removerSaldo(valor);
     }
+
+    // ========================
+    // Sobrescreve o método toString para incluir o limite da conta corrente
 
     @Override
     public String toString() {

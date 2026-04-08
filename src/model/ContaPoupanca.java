@@ -12,6 +12,9 @@ public class ContaPoupanca extends ContaBancaria {
         this.taxaJuros = TAXA_JUROS_PADRAO;
     }
 
+// ========================
+// ========================
+// Implementação dos métodos abstratos da classe mãe
     @Override
     public void depositar(double valor) {
         validarOperacaoBasica(this, valor);
@@ -26,16 +29,19 @@ public class ContaPoupanca extends ContaBancaria {
         removerSaldo(valor);
     }
 
+
+// ========================
+// GETTERS / SETTERS
+// ========================
     public double getTaxaJuros() {
         return taxaJuros;
     }
 
-
     //Validação para taxa de juros negativa
-   public void setTaxaJuros(double taxaJuros) {
-    validarTaxaJuros(taxaJuros);
-    this.taxaJuros = taxaJuros;
-}
+    public void setTaxaJuros(double taxaJuros) {
+        validarTaxaJuros(taxaJuros);
+        this.taxaJuros = taxaJuros;
+    }
 
     public void aplicarJuros() {
         validarContaAtiva(this);
@@ -44,6 +50,9 @@ public class ContaPoupanca extends ContaBancaria {
         setSaldo(getSaldo() + rendimento);
     }
 
+
+    // ========================
+    // Sobrescreve o método toString para incluir a taxa de juros da conta poupança
     @Override
     public String toString() {
         return super.toString()
