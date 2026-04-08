@@ -17,131 +17,145 @@ O sistema modela contas bancárias e suas regras de negócio, permitindo operaç
 * Aplicação de juros (conta poupança)
 * Validações de operações financeiras
 
-O foco do projeto é praticar **boas práticas de orientação a objetos**, como encapsulamento, abstração, herança e polimorfismo.
+O foco do projeto é praticar **boas práticas de orientação a objetos**, organização de código e separação de responsabilidades.
 
 ---
 
 ## 🧠 Conceitos de POO Aplicados
 
 ### ✔ Encapsulamento
-
-* Atributos privados/protegidos
-* Controle de acesso via métodos
-* Regras de negócio protegidas dentro das classes
+* Atributos private/protected
+* Controle de acesso via getters/setters
+* Regras protegidas dentro das entidades
 
 ### ✔ Abstração
-
 * Classe abstrata `ContaBancaria`
-* Métodos genéricos como:
-
+* Métodos genéricos:
   * `depositar()`
   * `sacar()`
 
 ### ✔ Herança
-
 * `ContaCorrente` e `ContaPoupanca` herdam de `ContaBancaria`
 
 ### ✔ Polimorfismo
-
-* Implementação diferente de saque e depósito em cada tipo de conta
+* Cada tipo de conta possui sua própria implementação de saque e depósito
 
 ---
 
+## 🧱 Arquitetura do Projeto
+
+```
+
 src/
- ├── model/
- │    ├── ContaBancaria (abstract)
- │    ├── ContaCorrente
- │    ├── ContaPoupanca
- │    ├── StatusConta (enum)
- │
- ├── services/
- │    ├── BancoService (lógica de negócio e controle das operações)
- │
- ├── ui/
- │    ├── Menu (interface de interação com o usuário via terminal)
+├── model/
+│    ├── ContaBancaria (abstract) --> SuperClasse
+│    ├── ContaCorrente --> filha
+│    ├── ContaPoupanca --> filha
+│    ├── StatusConta (enum)
+│
+├── validations/
+│    ├── ContaValidations (regras de validação)
+│
+├── exceptions/
+│    ├── SaldoInsuficienteException
+│    ├── ContaInativaException
+│    ├── ValorInvalidoException
+│
+├── services/
+│    ├── BancoService (Crud)
+│
+├── ui/
+│    ├── Menu (interface via terminal)
+
+```
+
+---
+
+## 🧠 Separação de Responsabilidades
+
+* **model** → Representa entidades do sistema e Regras de negócio
+* **validations** → Centraliza regras de validação
+* **exceptions** → Representa erros específicos do domínio
+* **services** → Crud
+* **ui** → Interação com usuário e fluxo da aplicação (console)
 
 ---
 
 ## 📊 Regras de Negócio
 
-* Contas são criadas automaticamente com status **ATIVA**
-* Saldo inicial é sempre **0**
-* Valores de operações devem ser positivos
-* Contas inativas ou bloqueadas não podem realizar operações
-* Conta corrente possui limite para saque
-* Conta poupança permite aplicação de juros
+* Contas iniciam como **ATIVA**
+* Saldo inicial = **0**
+* Operações exigem valores positivos
+* Contas inativas/bloqueadas não operam
+* Conta corrente permite limite de saque
+* Conta poupança possui taxa de juros
+* Validações são centralizadas na camada `validations`
+
+---
+
+## ⚠️ Tratamento de Erros
+
+O sistema utiliza **exceções customizadas** para representar regras de negócio:
+
+* `SaldoInsuficienteException`
+* `ContaInativaException`
+* `ValorInvalidoException`
+
+Isso melhora:
+* Clareza do código
+* Manutenção
+* Leitura das regras
 
 ---
 
 ## 🏦 Tipos de Conta
 
 ### ✔ Conta Corrente
-
-* Possui limite adicional de saque
-* Permite saldo negativo dentro do limite definido
+* Possui limite de saque
+* Permite saldo negativo dentro do limite
 
 ### ✔ Conta Poupança
-
 * Possui taxa de juros
-* Método `aplicarJuros()` para rendimento do saldo
+* Método `aplicarJuros()`
 
 ---
 
 ## ⚙️ Funcionalidades Implementadas
 
-* Criar contas (corrente e poupança)
+* Criar contas
 * Depositar valores
 * Sacar valores
+* Aplicar juros
 * Validação de operações
-* Aplicação de juros (poupança)
-* Controle de status da conta
+* Controle de status
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
 * Java 17+
-* Programação Orientada a Objetos (POO)
-* ArrayList (planejado para uso futuro)
-* Scanner (planejado para interface via terminal)
+* POO (Programação Orientada a Objetos)
+* Estrutura modular (packages)
+* Scanner (console input)
 * Visual Studio Code
-* Estrutura manual de pastas (sem Maven ou frameworks)
 
 ---
 
 ## 🚀 Melhorias Futuras
 
-O projeto ainda está em evolução e será expandido com:
-
-### 🔜 Camada de serviço (BancoService)
-
-* Centralizar regras de negócio
-* Gerenciar fluxo das operações
-
-### 🔜 Interface de usuário (Console Menu)
-
-* Menu interativo no terminal:
-
-  * Criar conta
-  * Depositar
-  * Sacar
-  * Aplicar juros
-
-### 🔜 Evoluções planejadas
-
-* Histórico de transações
+* Menu interativo completo
+* Persistência de dados
 * Transferência entre contas
-* Persistência de dados (arquivo)
-* Separação em camadas mais avançadas (Controller/Service)
-* Melhor tratamento de erros
+* Histórico de transações
+* Arquitetura em camadas (Controller/Service)
 
 ---
 
 ## ⚠️ Observações
 
-Este projeto é **100% baseado em terminal**, sem uso de frameworks ou dependências externas.
+Projeto focado em aprendizado, sem frameworks (Spring, etc).
 
-O foco é aprendizado dos fundamentos de Java antes de evoluir para tecnologias como Spring Boot.
+Objetivo: dominar base antes de avançar.
 
 ---
 
@@ -150,5 +164,3 @@ O foco é aprendizado dos fundamentos de Java antes de evoluir para tecnologias 
 Desenvolvido por **Arthur Mitsuo Yamamoto**
 
 ---
-
-

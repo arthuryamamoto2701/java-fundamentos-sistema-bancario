@@ -1,5 +1,7 @@
 package model;
 
+import static validations.ContaValidations.*;
+
 public class ContaPoupanca extends ContaBancaria {
 
     private static final double TAXA_JUROS_PADRAO = 0.5;
@@ -12,42 +14,34 @@ public class ContaPoupanca extends ContaBancaria {
 
     @Override
     public void depositar(double valor) {
-
-       validarOperacaoBasica(valor);
-
-        setSaldo(getSaldo() + valor);
+        validarOperacaoBasica(this, valor);
+        adicionarSaldo(valor);;
     }
 
-    // 🔹 Método para validar saldo suficiente considerando o limite da conta corrente
     @Override
     public void sacar(double valor) {
+        validarOperacaoBasica(this, valor);
+        validarSaldoSuficiente(this, valor);
 
-        validarOperacaoBasica(valor);
-        validarSaldoSuficiente(valor);
-
-    setSaldo(getSaldo() - valor);
+        removerSaldo(valor);
     }
 
     public double getTaxaJuros() {
         return taxaJuros;
     }
 
-    // 🔹 Método que valida que a taxa de juros não pode ser negativa
-    public void setTaxaJuros(double taxaJuros) {
 
-        if (taxaJuros < 0) {
-            throw new IllegalArgumentException("Taxa de juros não pode ser negativa.");
-        }
+    //Validação para taxa de juros negativa
+   public void setTaxaJuros(double taxaJuros) {
+    validarTaxaJuros(taxaJuros);
+    this.taxaJuros = taxaJuros;
+}
 
-        this.taxaJuros = taxaJuros;
-    }
-
-    // 🔹 Método para aplicar juros ao saldo da conta poupança
     public void aplicarJuros() {
-    validarContaAtiva();
+        validarContaAtiva(this);
 
-    double rendimento = getSaldo() * (taxaJuros / 100);
-    setSaldo(getSaldo() + rendimento);
+        double rendimento = getSaldo() * (taxaJuros / 100);
+        setSaldo(getSaldo() + rendimento);
     }
 
     @Override

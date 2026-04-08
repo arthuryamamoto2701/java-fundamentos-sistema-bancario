@@ -14,6 +14,9 @@ public abstract class ContaBancaria {
         this.status = StatusConta.ATIVA;
     }
 
+// ========================
+// GETTERS / SETTERS
+// ========================
     public int getId() {
         return id;
     }
@@ -41,46 +44,25 @@ public abstract class ContaBancaria {
         this.status = status;
     }
 
-    // 🔹 Validação de conta ativa
-    protected void validarContaAtiva() {
-        if (getStatus() != StatusConta.ATIVA) {
-            throw new IllegalStateException("Conta não está ativa.");
-        }
-    }
-
-    // 🔹 Validação de valor de depósito/saque
-    protected void validarValorPositivo(double valor) {
-        if (valor <= 0) {
-            throw new IllegalArgumentException("Valor deve ser maior que zero.");
-        }
-    }
-
-    // 🔹 Validação de saldo suficiente para saque
-    protected void validarSaldoSuficiente(double valor) {
-        if (valor > getSaldo()) {
-            throw new IllegalArgumentException("Saldo insuficiente para saque.");
-        }
-    }
-
-    // 🔹Validar de saldo suficiente mesmo com limite
-    protected void validarSaldoSuficienteComLimite(double valor, double limite) {
-        if (valor > getSaldo() + limite) {
-            throw new IllegalArgumentException("Saldo insuficiente, mesmo com limite.");
-        }
-    }
-
-
-    // 🔹 Método para validar operações básicas (depósito e saque)
-    protected void validarOperacaoBasica(double valor) {
-    validarValorPositivo(valor);
-    validarContaAtiva();
-}
-
-    // 🔹 Métodos abstratos
+    // ========================
+    // 🔹 Métodos abstratos para implementação nas classes filhas
     public abstract void sacar(double valor);
 
     public abstract void depositar(double valor);
 
+    // ========================
+    // 🔹 Operações básicas para saldo
+    protected void adicionarSaldo(double valor) {
+        setSaldo(getSaldo() + valor);
+    }
+
+    protected void removerSaldo(double valor) {
+        setSaldo(getSaldo() - valor);
+    }
+
+    // ========================
+    // TO STRING
+    // ========================
     // 🔹 Exibir dados
     @Override
     public String toString() {

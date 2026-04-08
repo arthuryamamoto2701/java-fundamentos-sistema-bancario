@@ -1,15 +1,15 @@
 package model;
 
+import static validations.ContaValidations.*;
+
 public class ContaCorrente extends ContaBancaria {
 
-   
     private double limiteContaCorrente;
 
-   
-    public ContaCorrente(int id, String titular, double saldo, double limiteContaCorrente) {
-    super(id, titular);
-    this.limiteContaCorrente = limiteContaCorrente;
-}
+    public ContaCorrente(int id, String titular, double limiteContaCorrente) {
+        super(id, titular);
+        this.limiteContaCorrente = limiteContaCorrente;
+    }
 
     public double getLimiteContaCorrente() {
         return limiteContaCorrente;
@@ -17,21 +17,16 @@ public class ContaCorrente extends ContaBancaria {
 
     @Override
     public void depositar(double valor) {
-        
-        validarOperacaoBasica(valor);
-
-        setSaldo(getSaldo() + valor);
+        validarOperacaoBasica(this, valor);
+        adicionarSaldo(valor);
     }
 
     @Override
     public void sacar(double valor) {
+        validarOperacaoBasica(this, valor);
+        validarSaldoComLimite(this, valor, limiteContaCorrente);
 
-        validarOperacaoBasica(valor);
-
-        validarSaldoSuficienteComLimite(valor, limiteContaCorrente);
-
-        setSaldo(getSaldo() - valor);
-        //caso contrario o valor é sacado normalmente, subtraindo o valor do saque do saldo atual da conta.
+        removerSaldo(valor);
     }
 
     @Override
