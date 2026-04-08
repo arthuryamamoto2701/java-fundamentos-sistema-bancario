@@ -62,7 +62,7 @@ src/
 │    ├── ValorInvalidoException
 │
 ├── services/
-│    ├── BancoService (Crud)
+│    ├── BancoService (crud)
 │
 ├── ui/
 │    ├── Menu (interface via terminal)
